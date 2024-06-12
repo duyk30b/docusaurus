@@ -96,12 +96,12 @@ const config: Config = {
             },
           ],
         },
-        {
-          type: "docSidebar",
-          sidebarId: "defaultSidebar",
-          position: "left",
-          label: "Tutorial",
-        },
+        // {
+        //   type: "docSidebar",
+        //   sidebarId: "defaultSidebar",
+        //   position: "left",
+        //   label: "Tutorial",
+        // },
         { to: "/blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/facebook/docusaurus",
