@@ -108,6 +108,11 @@ const config: Config = {
           label: "GitHub",
           position: "right",
         },
+        // {
+        //   href: "/tools/editor.2.0.html",
+        //   label: "HTMLEditor",
+        //   position: "right",
+        // },
       ],
     },
     footer: {

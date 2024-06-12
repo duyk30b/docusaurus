@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Tester 3.0</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        body {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 5px;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            font-family: Consolas, 'ConsolasRegular', 'Courier New', monospace !important;
+        }
+
+        #preview {
+            flex-grow: 1;
+        }
+
+        iframe {
+            width: 100%;
+            height: 98%;
+        }
+
+        #editBox {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            min-width: 300px;
+            height: 98%;
+            width: 50%;
+            border: 1px solid #6c757d;
+            margin-right: 2px;
+            resize: horizontal;
+            overflow: auto;
+        }
+
+        div.itemArea {
+            background-color: #ddd;
+            flex-grow: 0;
+        }
+
+        div.itemArea.active {
+            flex-grow: 1;
+        }
+
+        #editBox.rotate {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        #editBox.rotate>#HTMLArea {
+            height: 100%;
+            flex-grow: 0;
+        }
+
+        #editBox.rotate>.itemArea {
+            width: 50%;
+        }
+
+        textarea {
+            overflow: auto;
+            border: 0;
+            padding: 0.5rem;
+            display: none;
+            width: 100%;
+            height: calc(100% - 3rem) !important;
+            border: 1px solid #6c757d;
+        }
+
+        .itemArea.active>textarea {
+            display: block;
+        }
+
+
+        .btnNav {
+            cursor: pointer;
+            float: left;
+            padding: 0.5rem 0.75rem;
+            margin: 2px;
+            border: 1px solid #6c757d;
+            border-radius: 0.25rem 0.25rem 0 0;
+            background-color: white;
+        }
+
+        .itemArea .btnNav:hover {
+            background-color: #374958 !important;
+            color: white;
+        }
+
+        .itemArea.active .btnNav:first-child {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        #btnRotate,
+        #btnNewWindow {
+            float: right;
+        }
+
+        #btnFormat::before {
+            content: "Demo ";
+        }
+
+        #btnFormat.addCode::before {
+            content: "Clear ";
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="editBox">
+            <div id="HTMLArea" class="itemArea active">
+                <div class="itemNav">
+                    <div id="HTMLNav" class="btnNav">index.html</div>
+                    <div id="btnFormat" class="btnNav">Code</div>
+                    <div id="btnNewWindow" class="btnNav">Open Popup </div>
+                    <div id="btnRotate" class="btnNav">Rotate</div>
+                </div>
+                <textarea id="HTMLEditor" placeholder="Code HTML..."></textarea>
+            </div>
+            <div id="CSSArea" class="itemArea">
+                <div class="itemNav">
+                    <div id="CSSNav" class="btnNav">style.css</div>
+                </div>
+                <textarea id="CSSEditor" placeholder="Code CSS..."></textarea>
+            </div>
+            <div id="JSArea" class="itemArea">
+                <div class="itemNav">
+                    <div id="JSNav" class="btnNav">funtion.js</div>
+                </div>
+                <textarea id="JSEditor" placeholder="Code JS..."></textarea>
+            </div>
+        </div>
+        <div id="preview">
+            <iframe></iframe>
+        </div>
+    </main>
+
+    <script>
+        let HTMLEditor = document.getElementById("HTMLEditor");
+        let CSSEditor = document.getElementById("CSSEditor");
+        let JSEditor = document.getElementById("JSEditor");
+        let editBox = document.getElementById("editBox");
+
+        let btnNewWindow = document.getElementById("btnNewWindow");
+        let btnFormat = document.getElementById("btnFormat");
+
+        let preview = document.getElementById("preview");
+        let itemArea = document.getElementsByClassName("itemArea");
+
+        let windowPopup = null;
+
+        let openPopup = () => {
+            windowPopup = window.open("", "", "width=1000,height=700");
+            let cssNode = document.createElement("style");
+            let jsNode = document.createElement("script");
+            cssNode.innerHTML = "body{width:100%;height:100%;margin:0;padding:0}iframe{width:100%;height:100%;border:0}";
+            jsNode.innerHTML = "window.onbeforeunload=(e)=>{window.opener.messageFromChildWindow(\"closed\")}";
+            windowPopup.document.head.append(cssNode);
+            windowPopup.document.head.append(jsNode);
+   
+            preview.style.display = "none";
+            btnNewWindow.classList.add("closePopup");
+            btnNewWindow.innerText = "Close Popup";
+        }
+        let closePopup = () => {
+            windowPopup = null;
+            preview.style.display = "block";
+            btnNewWindow.classList.remove("closePopup");
+            btnNewWindow.innerText = "Open Popup ";
+        }
+
+        messageFromChildWindow = (msg) => {
+            if (msg === 'closed') {
+                closePopup();
+                reloadPreview();
+            }
+        }
+
+        btnNewWindow.onclick = () => {
+            if (btnNewWindow.classList.contains("closePopup")) {
+                windowPopup.close();
+                closePopup();
+            }
+            else {
+                openPopup();
+            }
+            reloadPreview();
+        }
+
+        window.onbeforeunload = function () {
+            windowPopup.close();
+        };
+
+        btnFormat.onclick = () => {
+            if (!btnFormat.classList.contains("addCode")) {
+                for (i = 0; i < itemArea.length; i++) {
+                    if (!itemArea[i].classList.contains("active")) {
+                        itemArea[i].classList.add("active");
+                    }
+                }
+
+                HTMLEditor.value = "<!DOCTYPE html>\n"
+                    + "<html lang=\"en\"> \n"
+                    + "<head>\n"
+                    + "    <meta charset=\"UTF-8\">\n"
+                    + "    <meta name=\"description\" content=\"The HTML5 Herald\">\n"
+                    + "    <meta name=\"author\" content=\"Developer\">\n"
+                    + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                    + "    <title>Document<\/title>\n"
+                    + "    <link rel=\"stylesheet\" href=\"\">\n"
+                    + "<\/head>\n"
+                    + "<body>\n"
+                    + "    <h2 id=\"demo\">Click me, please !!!<\/h2>\n"
+                    + "    <script src=\"\"><\/script>\n"
+                    + "<\/body>\n"
+                    + "<\/html>";
+                CSSEditor.value = "h2 { \n"
+                    + "    font-style: italic;\n"
+                    + "    color: red;\n"
+                    + "}";
+                JSEditor.value = "let demoID = document.getElementById(\"demo\");\n"
+                    + "    demoID.onclick = () => {\n"
+                    + "    demoID.innerHTML = \"You click at: \" + new Date().toLocaleTimeString()\n"
+                    + "        + \" - \" + new Date().getMilliseconds();\n"
+                    + "}";
+            }
+            else {
+                HTMLEditor.value = "";
+                CSSEditor.value = "";
+                JSEditor.value = "";
+            }
+            btnFormat.classList.toggle("addCode");
+            reloadPreview();
+        }
+
+        document.getElementById("btnRotate").onclick = () => {
+            editBox.classList.toggle("rotate");
+        }
+
+        document.body.onclick = () => {
+            let thisID = event.target.id;
+            let navID = String(thisID.match(/HTMLNav|CSSNav|JSNav/i));
+
+            if (navID != null) {
+                let areaID = navID.replace("Nav", "Area");
+                let areaNode = document.getElementById(areaID);
+                areaNode.classList.toggle("active");
+            }
+        };
+
+
+        let writeWindow = (w) => {
+            w.document.open();
+            w.document.write(HTMLEditor.value);
+            let css = document.createElement("style");
+            let js = document.createElement("script");
+            css.innerHTML = CSSEditor.value;
+            js.innerHTML = JSEditor.value;
+            w.document.head.append(css);
+            w.document.body.append(js);
+            w.document.close();
+        }
+
+        let reloadPreview = () => {
+            let bodyFrame = null;
+            if (windowPopup != null) {
+                bodyFrame = windowPopup.document.body;
+            }
+            else {
+                bodyFrame = preview;
+            }
+            bodyFrame.innerHTML = "";
+            let iframeNode = document.createElement("iframe");
+            bodyFrame.appendChild(iframeNode);
+            let myFrame = bodyFrame.getElementsByTagName("iframe")[0];
+            writeWindow(myFrame.contentWindow);
+        }
+
+        document.onkeyup = () => {
+            reloadPreview();
+        };
+
+    </script>
+</body>
+
+</html>
