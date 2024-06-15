@@ -6,6 +6,11 @@ sidebar_position: 1
 
 Let's discover **Docusaurus in less than 5 minutes**.
 
+## Tools
+- HTML Editor:  **[HTMLeditor.2.0](/html/editor.2.0.html)**.
+- HTML Editor:  **[HTMLeditor.3.0](/html/editor.3.0.html)**.
+- TinyMCE 4.5.1:  **[TinyMCE.4.5.1](/html/WYSIWYGeditor1.0.html)**.
+
 ## Getting Started
 
 Get started by **creating a new site**.
