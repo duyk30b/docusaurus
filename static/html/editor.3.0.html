@@ -175,7 +175,7 @@
             jsNode.innerHTML = "window.onbeforeunload=(e)=>{window.opener.messageFromChildWindow(\"closed\")}";
             windowPopup.document.head.append(cssNode);
             windowPopup.document.head.append(jsNode);
-   
+
             preview.style.display = "none";
             btnNewWindow.classList.add("closePopup");
             btnNewWindow.innerText = "Close Popup";
@@ -259,7 +259,7 @@
             let thisID = event.target.id;
             let navID = String(thisID.match(/HTMLNav|CSSNav|JSNav/i));
 
-            if (navID != null) {
+            if (navID != "null") {
                 let areaID = navID.replace("Nav", "Area");
                 let areaNode = document.getElementById(areaID);
                 areaNode.classList.toggle("active");
