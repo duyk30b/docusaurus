@@ -3,7 +3,7 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: "My Site",
+  title: "DuyCode",
   tagline: "Dinosaurs are cool",
   favicon: "img/favicon.ico",
 
@@ -58,9 +58,9 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "My Site",
+      title: "DuyCode",
       logo: {
-        alt: "My Site Logo",
+        alt: "DuyCode Logo",
         src: "img/logo.svg",
       },
       items: [
@@ -95,6 +95,29 @@ const config: Config = {
               to: "/docs/category/sql",
             },
           ],
+        },
+        {
+          label: "Framework",
+          position: "left",
+          to: "docs/category/framework/",
+          activeBasePath: "docs/category/framework",
+          items: [
+            {
+              label: "VueJS",
+              to: "/docs/category/vuejs",
+            },
+            {
+              label: "Google Project",
+              to: "/docs/category/google-project",
+            },
+          ],
+        },
+        {
+          label: "Systems",
+          position: "left",
+          to: "docs/category/systems/",
+          activeBasePath: "docs/category/systems",
+          items: [],
         },
         // {
         //   type: "docSidebar",
