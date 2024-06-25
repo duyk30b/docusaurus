@@ -71,6 +71,10 @@ const config: Config = {
           activeBasePath: "docs/category/language",
           items: [
             {
+              label: "Design Pattern",
+              to: "/docs/category/design-pattern",
+            },
+            {
               label: "Javascript",
               to: "/docs/category/javascript",
             },
