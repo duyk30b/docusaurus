@@ -131,15 +131,10 @@ const config: Config = {
         // },
         { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/facebook/docusaurus",
-          label: "GitHub",
+          href: "/tools/editor.3.0.html",
+          label: "HTMLEditor.3.0",
           position: "right",
         },
-        // {
-        //   href: "/tools/editor.2.0.html",
-        //   label: "HTMLEditor",
-        //   position: "right",
-        // },
       ],
     },
     footer: {
