@@ -131,7 +131,7 @@ const config: Config = {
         // },
         { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "/tools/editor.3.0.html",
+          href: "/html/editor.3.0.html",
           label: "HTMLEditor.3.0",
           position: "right",
         },
