@@ -97,7 +97,14 @@ The authenticity of host gitlab.com (207.97.227.239) can't be established.
 ssh -i /home/duy.ngo/.ssh/id_ecdsa schatadmin@13.76.181.183
 ```
 
-### 4. Một vài lưu ý
+### 4. Xóa key cũ đã kết nối do server cập nhật hoặc thay đổi
+
+```
+ssh-keygen -f "/home/duy/.ssh/known_hosts" -R "123.172.129.229"
+
+```
+
+### 5. Một vài lưu ý
 
 1. Xóa cặp key
 
@@ -178,6 +185,7 @@ cat  ~/.ssh/known_hosts
 ```
 
 ## III. Connect đơn giản
+
 ```
 $ cd ~/.ssh
 // -i: điền path lưu key
