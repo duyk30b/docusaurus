@@ -112,8 +112,8 @@ const config: Config = {
         {
           label: "Operating Systems",
           position: "left",
-          to: "docs/category/operating-systems/",
-          activeBasePath: "docs/category/operating-systems",
+          to: "docs/category/operating-system/",
+          activeBasePath: "docs/category/operating-system",
           items: [
             {
               label: "Windows",
