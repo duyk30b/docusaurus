@@ -110,11 +110,16 @@ const config: Config = {
           ],
         },
         {
-          label: "Systems",
+          label: "Operating Systems",
           position: "left",
-          to: "docs/category/systems/",
-          activeBasePath: "docs/category/systems",
-          items: [],
+          to: "docs/category/operating-systems/",
+          activeBasePath: "docs/category/operating-systems",
+          items: [
+            {
+              label: "Windows",
+              to: "/docs/category/windows",
+            },
+          ],
         },
         // {
         //   type: "docSidebar",

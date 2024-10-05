@@ -1,5 +1,6 @@
 # Ubuntu cơ bản
 
+## I. Terminal
 1. Check hệ điều hành
 
 ```
@@ -26,3 +27,6 @@ duy@local:~$ hostnamectl
 whoami // check tài khoản hiện tại
 passwd // Đổi mật khẩu
 ```
+
+## II. Application
+
